@@ -40,7 +40,7 @@ class DatabaseHelper {
   }
 
   // Insert Audio and Manual dictation
-  insertAudio(PatientDictation newAudio) async {
+  insertAudioRecords(PatientDictation newAudio) async {
     // await deleteAllAudios();
 
     var db = await database;
@@ -133,7 +133,7 @@ class DatabaseHelper {
 
     //exception handling
     try{
-      var externalPhoroList = await db.insert(AppStrings.dbTablePhotoList, {
+      var externalPhotoList = await db.insert(AppStrings.dbTablePhotoList, {
         AppStrings.col_PhotoList_Id:photoList.id,
         AppStrings.col_PhotoListDictationId:photoList.dictationLocalId,
         AppStrings.col_PhotoListExternalAttachmentId:photoList.externalattachmentlocalid,
@@ -144,7 +144,7 @@ class DatabaseHelper {
         AppStrings.col_PhotoListAttachmentPhysicalFileName:photoList.physicalfilename,
         AppStrings.col_PhotoListAttachmentCreatedDate:photoList.createddate
       });
-      return externalPhoroList;
+      return externalPhotoList;
       
     }catch (e){
       print(e.toString());

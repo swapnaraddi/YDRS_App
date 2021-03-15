@@ -8,12 +8,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class MicButton extends StatefulWidget {
-  final String patientName;
-  final String caseNumber;
+  final String patientFName;
+  final String patientLName;
+  final String caseId;
   final String patientDob;
-  final int dictationTypeId;
+  final String dictationTypeId;
 
-  const MicButton({Key key, this.patientName, this.caseNumber, this.patientDob, this.dictationTypeId}) : super(key: key);
+  const MicButton({Key key, this.patientFName, this.patientLName, this.patientDob, this.dictationTypeId, this.caseId}) : super(key: key);
 
   @override
   _MicButtonState createState() => _MicButtonState();
@@ -33,7 +34,7 @@ class _MicButtonState extends State<MicButton> {
       onPressed: () {
         Alert(
           context: context,
-          title:"Select Dictation Type.",
+          title:"Select Dictation Type",
           content:  Container(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 10
@@ -58,7 +59,7 @@ class _MicButtonState extends State<MicButton> {
                             child: BlocProvider<AudioDictationBloc>(
                               create: (context) => AudioDictationBloc(),
                               /// calling the audio dictation class from ui folder
-                              child: AudioDictation(patientFName: widget.patientName,patientLName: widget.patientName, patientDob: widget.patientDob),
+                              child: AudioDictation(patientFName: widget.patientFName, patientDob: widget.patientDob,caseNum: widget.caseId,dictationTypeId:_currentSelectedValue),
                             ),
                           );
                           },

@@ -108,12 +108,8 @@ class AppStrings {
 
 
   //Queries
-  static const deleteOlderFiles = "DELETE FROM Audio_Table WHERE date(createdDate) < date('now')";
+  // static const deleteOlderFiles = "DELETE FROM Audio_Table WHERE date(createdDate) < date('now')";
   static const selectQuery = "SELECT * FROM Audio_Table";
-
-  static const deleteFiles = "DELETE Audio_Table.id, Audio_Table.createddate,"
-      "date(Audio_Table.createddate) dt, date('now') FROM 'Audio_Table' where date(Audio_Table.createddate) < date('now')";
-
 
 
   //Table for Patient Dictation and Manual Dictation

@@ -318,7 +318,7 @@ class _PatientDetailState extends State<PatientDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             //Button for mic
-                            MicButton(patientName: item.patient.displayName,caseNumber: item.patient.accountNumber,patientDob: item.patient.dob,dictationTypeId: item.dictationTypeId),
+                            MicButton(patientFName: item.patient.firstName,patientLName: item.lastName, caseId: item.patient.accountNumber,patientDob: item.patient.dob),
                             //
                             //Button for camera
                             MaterialButtons(

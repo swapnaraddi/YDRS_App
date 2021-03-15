@@ -19,9 +19,9 @@ import 'package:intl/intl.dart';
 
 class AudioDictation extends StatefulWidget {
 
-  final String patientFName,patientLName,patientDob, dictationTypeId;
+  final String patientFName,patientLName,patientDob, dictationTypeId, caseNum;
 
-  const AudioDictation({Key key, this.patientFName, this.patientLName, this.patientDob, this.dictationTypeId}) : super(key: key);
+  const AudioDictation({Key key, this.patientFName, this.patientLName, this.patientDob, this.dictationTypeId, this.caseNum}) : super(key: key);
 
   @override
   _AudioDictationState createState() => _AudioDictationState();
@@ -96,7 +96,7 @@ class _AudioDictationState extends State<AudioDictation> {
                                       .add(StopRecord());
 
                                   //call insert method
-                                  // _insertRecordsToDataBase();
+                                  _insertRecordsToDataBase();
 
                                   Fluttertoast.showToast(
                                       msg: "Recording Saved",
@@ -394,25 +394,25 @@ class _AudioDictationState extends State<AudioDictation> {
     );
   }
 
-  // //Insert Dictation Data
-  // _insertRecordsToDataBase() async {
-  //   final String formatted = formatter.format(now);
-  //   var audioFile = await File(_current.path).readAsBytes();
-  //   DatabaseHelper.db.insertAudio(PatientDictation(
-  //     audioFile: audioFile,
-  //     fileName: widget.dictationTypeId +
-  //         "_" +
-  //         item.patient.firstName ?? "NA" +
-  //         "_" +
-  //         item.patient.accountNumber ?? "NA" +
-  //         "_" +
-  //         '${formatted}' +
-  //         ".mp4",
-  //     patientFirstName: widget.patientFName ?? 'NA',
-  //     patientLastName: widget.patientLName ?? 'NA',
-  //     dictationTypeId: widget.dictationTypeId ?? 'NA',
-  //     patientDOB: widget.patientDob ?? 'NA',
-  //     createdDate: '${DateTime.now()}' ?? 'NA',
-  //   ));
-  // }
+   //Insert Dictation Data
+  _insertRecordsToDataBase() async {
+    try{
+      final String formatted = formatter.format(now);
+      print('_insertRecordsToDataBase caseNo ${widget.caseNum} formatted $formatted}');
+      var audioFile = await File(_current.path).readAsBytes();
+      DatabaseHelper.db.insertAudioRecords(PatientDictation(
+        audioFile: audioFile,
+        fileName:
+            '${widget.dictationTypeId}_${widget.patientFName ?? "NA"}_${widget.caseNum ?? "NA"}_${formatted ?? 'NA'}.mp4',
+        patientFirstName: widget.patientFName ?? 'NA',
+        patientLastName: widget.patientLName ?? 'NA',
+        dictationTypeId: widget.dictationTypeId ?? 'NA',
+        patientDOB: widget.patientDob ?? 'NA',
+        createdDate: '${DateTime.now()}' ?? 'NA',
+      ));
+    } catch (e){
+      print('_insertRecordsToDataBase ${e.toString()}');
+    }
+
+  }
 }
